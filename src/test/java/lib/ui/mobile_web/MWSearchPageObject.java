@@ -16,8 +16,7 @@ public class MWSearchPageObject extends SearchPageObject
         SEARCH_EMPTY_RESULT_ELEMENT = "css:p.without-results";
         SEARCH_RESULT_IN_TITLE_TPL = "xpath://div[@class='results']//ul//li[@title='{TITLE}']";
         SEARCH_RESULT_LOCATOR_IN_TITLE = "css:div.results ul li";
-        SEARCH_RESULT_IN_TITLE_AND_DESCRIPTION_TPL = "xpath://li[contains(@class, 'page-summary')][contains(@title, '{TITLE}')]" +
-                "/*[contains(@class, 'wikidata-description')][contains(text(), '{DESCRIPTION}')]";
+        SEARCH_RESULT_IN_TITLE_AND_DESCRIPTION_TPL = "xpath://div[@class='results']//ul//li[contains(@title, '{TITLE}')]//div[contains(text(), '{DESCRIPTION}')]";
     }
     public MWSearchPageObject(RemoteWebDriver driver) {
         super(driver);

@@ -228,7 +228,7 @@ public class HomeWork extends CoreTestCase
   }
 
   @Test
-  public void testTemplateRefactoring_Ex9_Ex12() {
+  public void testTemplateRefactoring_Ex9_Ex12_Ex18() {
     SearchPageObject = SearchPageObjectFactory.get(driver);
 
     String search_word = "Languages of";
@@ -236,17 +236,26 @@ public class HomeWork extends CoreTestCase
     SearchPageObject.initSearchInput(); // кликаем на строку поиска
     SearchPageObject.typeSearchLine(search_word); // вводим поисковый запрос
 
-    if (Platform.getInstance().isAndroid()) {
+    if (Platform.getInstance().isAndroid() || Platform.getInstance().isMW()) {
       String[][] titlesAndDescriptions = {
               {"Languages of India", "Languages of a geographic region"},
               {"Languages of the United States", "Languages of a geographic region"},
               {"Languages of the Philippines", "Languages of a geographic region"}
       };
+      String title;
+      String description;
       // в цикле проверяем есть ли блок с таким названием и описанием, сравнивая со значениями из массива
       for (int i = 0; i < 3; i ++) {
-        SearchPageObject.waitForElementByTitleAndDescription(titlesAndDescriptions[i][0], titlesAndDescriptions[i][1]);
+        title = titlesAndDescriptions[i][0];
+        description = titlesAndDescriptions[i][1];
+
+        // обрезаем первый символб т.к. в веб не угадаешь загалваня или строчная первая буква описания
+        if (Platform.getInstance().isMW()) {
+          description = description.substring(1);
+        }
+        SearchPageObject.waitForElementByTitleAndDescription(title, description);
       }
-    } else {
+    } else if (Platform.getInstance().isIOS()) {
       String [][] titles = {
               {"Languages of India\nLanguages of a geographic region"},
               {"Languages of the United States\nLanguages of a geographic region"},

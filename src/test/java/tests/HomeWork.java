@@ -249,13 +249,13 @@ public class HomeWork extends CoreTestCase
         title = titlesAndDescriptions[i][0];
         description = titlesAndDescriptions[i][1];
 
-        // обрезаем первый символб т.к. в веб не угадаешь загалваня или строчная первая буква описания
+        // обрезаем первый символ, т.к. в веб не угадаешь заглавная или строчная первая буква описания
         if (Platform.getInstance().isMW()) {
           description = description.substring(1);
         }
         SearchPageObject.waitForElementByTitleAndDescription(title, description);
       }
-    } else if (Platform.getInstance().isIOS()) {
+    } else {
       String [][] titles = {
               {"Languages of India\nLanguages of a geographic region"},
               {"Languages of the United States\nLanguages of a geographic region"},

@@ -97,6 +97,11 @@ abstract public class SearchPageObject extends MainPageObject
     this.waitForElementAndClick(search_result_xpath,"Cannot find and click search result with substring " + substring,10);
   }
 
+  public void clickByArticleWithTitle(String substring) {
+    String search_result_xpath = getResultSearchElementInTitle(substring);
+    this.waitForElementAndClick(search_result_xpath,"Cannot find and click search result with title (as substring) " + substring,10);
+  }
+
   public WebElement waitForSearchPlaceholder() {
     return this.waitForElementPresent(SEARCH_PLACEHOLDER,"Cannot find search placeholder",5);
   }

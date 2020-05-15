@@ -15,16 +15,17 @@ abstract public class NavigationUI extends MainPageObject
 
   public void openNavigation() {
     if (Platform.getInstance().isMW()) {
-      this.tryClickElementWithFewAttempts(MY_LISTS_LINK, "Cannot find navigation button to My list", 5);
+      this.waitForElementAndClick(OPEN_NAVIGATION, "Cannot find and click open navigation button", 5);
     } else {
-      this.waitForElementAndClick(MY_LISTS_LINK, "Cannot find navigation button to My list", 5);
+      System.out.println("Method openNavigation() do nothing for platform " + Platform.getInstance().getPlatformVar());
     }
   }
 
   public void clickMyLists() {
     if (Platform.getInstance().isMW()) {
       this.tryClickElementWithFewAttempts(MY_LISTS_LINK, "Cannot find lists icon", 5);
+    } else {
+      this.waitForElementAndClick(MY_LISTS_LINK, "Cannot find lists icon", 5);
     }
-    this.waitForElementAndClick(MY_LISTS_LINK,"Cannot find lists icon",5);
   }
 }

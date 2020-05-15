@@ -35,36 +35,40 @@ public class MyListsTests extends CoreTestCase
     ArticlePageObject.waitForTitleElement();
     String article_title = ArticlePageObject.getArticleTitle();
 
+    // Android
     if (Platform.getInstance().isAndroid()) {
       ArticlePageObject.addArticleToMyList(name_of_folder);
-    } else {
-      ArticlePageObject.addArticlesToMySaved();
-      if (Platform.getInstance().isIOS()) {
-        ArticlePageObject.clickOnEmptyPlaceToClosePopup(50, 50);
-      }
+      ArticlePageObject.closeArticle();
+      NavigationUI.openNavigation();
+      NavigationUI.clickMyLists();
+      MyListsPageObject.openFolderByName(name_of_folder);
+      MyListsPageObject.swipeByArticleToDelete(article_title);
     }
-
-    if (Platform.getInstance().isMW()) {
+    // iOS
+    else if (Platform.getInstance().isIOS()) {
+      ArticlePageObject.addArticlesToMySaved();
+      ArticlePageObject.clickOnEmptyPlaceToClosePopup(50, 50);
+      ArticlePageObject.closeArticle();
+      NavigationUI.openNavigation();
+      NavigationUI.clickMyLists();
+      MyListsPageObject.swipeByArticleToDelete(article_title);
+    }
+    // Mobile WEB
+    else {
+      ArticlePageObject.addArticlesToMySaved();
       AuthorizationPageObject Auth = new AuthorizationPageObject(driver);
       Auth.clickAuthButton();
       Auth.enterLoginData(login, password);
       Auth.submitForm();
-
       ArticlePageObject.waitForTitleElement();
 
       assertEquals("We are not on the same page after login", article_title, ArticlePageObject.getArticleTitle());
 
       ArticlePageObject.addArticlesToMySaved();
+      NavigationUI.openNavigation();
+      NavigationUI.clickMyLists();
+      MyListsPageObject.swipeByArticleToDelete(article_title);
     }
-
-    ArticlePageObject.closeArticle();
-    NavigationUI.openNavigation();
-    NavigationUI.clickMyLists();
-
-    if (Platform.getInstance().isAndroid()) {
-      MyListsPageObject.openFolderByName(name_of_folder);
-    }
-
-    MyListsPageObject.swipeByArticleToDelete(article_title);
   }
+
 }
